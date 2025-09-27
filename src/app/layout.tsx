@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: 'THE SUKEBAN',
   description: 'La team féminine qui domine le gaming',
   icons: {
-    icon: '/favicon.ico', 
+    icon: 'https://thesukebanofficielle.netlify.app/favicon.ico', 
   },
 };
 
