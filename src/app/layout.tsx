@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: 'La team féminine qui domine le gaming',
   icons: {
     icon: [
-      { url: '/images/LOGO copie.png', type: 'image/png' },
+      { url: '/favicon.ico', type: 'image/ico' },
     ],
   },
 };

@@ -5,28 +5,20 @@ import { useState, useEffect } from 'react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const [visitorCount, setVisitorCount] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [visitorCount, setVisitorCount] = useState(null);
 
   useEffect(() => {
-    const updateCounter = async () => {
-      try {
-        // CountAPI - compteur global pour tous les visiteurs
-        const response = await fetch('https://api.countapi.xyz/hit/sukeban-gaming/visits');
-        const data = await response.json();
-        setVisitorCount(data.value);
-      } catch (error) {
-        console.error('Erreur compteur:', error);
-        // Fallback sur localStorage si CountAPI échoue
-        const localCount = parseInt(localStorage.getItem('visitorCount') || '0') + 1;
-        localStorage.setItem('visitorCount', localCount.toString());
-        setVisitorCount(localCount);
-      } finally {
-        setLoading(false);
-      }
+    // Compter CHAQUE visite, même si c'est la même personne
+    const countVisit = () => {
+      // Incrémenter le compteur local à chaque visite
+      const currentCount = parseInt(localStorage.getItem('totalVisits') || '0');
+      const newCount = currentCount + 1;
+      
+      localStorage.setItem('totalVisits', newCount.toString());
+      setVisitorCount(newCount);
     };
 
-    updateCounter();
+    countVisit();
   }, []);
 
   return (
@@ -62,13 +54,15 @@ export default function Footer() {
               <li>📍 Madagascar</li>
             </ul>
             
-            <h3 className="text-lg font-semibold mb-4 mt-6">Visiteurs</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li className="text-gray font-semibold ">
-              <span className="text-pink-500" style={{marginRight : '0.5rem' }}>👤</span>
-                {loading ? '...' : visitorCount.toLocaleString()} personnes
-              </li>
-            </ul>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 mt-6">Total des visites</h3>
+              <ul className="space-y-2 text-gray-300">
+                <li className="text-gray font-semibold">
+                  <span className="text-pink-500" style={{ marginRight: '0.5rem' }}>👤</span>
+                  {visitorCount === null ? '...' : `${visitorCount.toLocaleString()} visites`}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
