@@ -3,8 +3,11 @@ import { notFound } from "next/navigation";
 import { members } from "@/data/members";
 import Link from "next/link";
 
-export default function MemberDetail({ params }: { params: { id: string } }) {
-  const member = members.find((m) => m.id === params.id);
+export default async function MemberDetail({ params }: { params: Promise<{ id: string }> }) {
+  
+  const { id } = await params;
+  
+  const member = members.find((m) => m.id === id);
 
   if (!member) {
     return notFound();
@@ -48,7 +51,6 @@ export default function MemberDetail({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-
           <div className="p-8">
             <div className="grid lg:grid-cols-2 gap-8">
                 
@@ -59,17 +61,12 @@ export default function MemberDetail({ params }: { params: { id: string } }) {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  {/* <div className="bg-white rounded-xl p-4 border border-rose-200 text-center">
-                    <div className="text-2xl font-bold text-rose-700">{member.debutJeu}</div>
-                    <div className="text-rose-600 text-sm">Début de jeu</div>
-                  </div> */}
                   <div className="bg-white rounded-xl p-4 border border-pink-200 text-center">
                     <div className="text-lg font-semibold text-pink-700">{member.styleJeu}</div>
                     <div className="text-pink-600 text-sm">Style de jeu</div>
                   </div>
                 </div>
               </div>
-
 
               <div className="space-y-6">
                 <div className="bg-white rounded-2xl p-6 border border-rose-200">

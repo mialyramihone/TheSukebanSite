@@ -2,18 +2,21 @@ import Link from 'next/link';
 import { blogPosts } from '@/data/blogPosts';
 import { notFound } from 'next/navigation';
 
-interface BlogPostPageProps {
-  params: {
-    id: string;
-  };
-}
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = blogPosts.find(p => p.id === params.id);
+// Utilisez un type directement sans interface
+export default async function BlogPostPage(props: {
+  params: Promise<{ id: string }>
+}) {
+  // Destructurez après await pour être plus explicite
+  const params = await props.params;
+  const { id } = params;
+  
+  const post = blogPosts.find(p => p.id === id);
 
   if (!post) {
     notFound();
   }
 
+  // Le reste de votre code reste exactement le même...
   return (
     <div className="min-h-screen bg-white py-8 md:py-12">
       
@@ -33,11 +36,8 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </section>
 
-
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         
-        
-
         <article className="bg-white">
           {/* Métadonnées */}
           <div className="flex items-center gap-6 text-sm text-gray-500 mb-8 pb-6 border-b border-gray-100">
@@ -53,7 +53,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               })}
             </div>
           </div>
-
 
           <div className="prose prose-lg max-w-none">
             <div className="text-gray-800 leading-relaxed space-y-8">
