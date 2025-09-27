@@ -31,7 +31,7 @@ export const members: Member[] = [
   },
   {
     id: "3",
-    pseudo: "MIORA ˢᴷ",
+    pseudo: "MIARO ˢᴷ",
     role: "Caller Shot",
     bio: "Joueuse mobile, elle ne laisse personne passer avec son M1887. Tous les adversaires s'agenouillent à son passage grâce à ses headshots.",
     slogan: "Un shot, un kill",
